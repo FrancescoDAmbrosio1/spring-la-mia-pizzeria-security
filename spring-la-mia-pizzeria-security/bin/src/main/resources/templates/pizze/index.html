@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<title>Pizze</title>
+</head>
+<body>
+	<h1>Menù delle Pizze</h1>
+
+	<div class="container">
+		<table id="table-1">
+				<thead>
+					<tr>
+						<th> NOME </th>
+						<th> DESCRIZIONE </th>
+						<th> PREZZO </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="pizza : ${list}">
+						<td th:text="${pizza.name}">1</td>
+						<td th:text="${pizza.description}">1</td>
+						<td th:text="${pizza.price} + '€'">1</td>
+						<td><a class="btn btn-primary" target="_blank"
+							th:href="@{|/pizze/show/${pizza.id}|}"> <i class="bi bi-book"></i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div th:if="${list.isEmpty()}">
+				<span> La ricerca non ha prodotto risultati </span>
+			</div>
+	</div>
+	
+	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

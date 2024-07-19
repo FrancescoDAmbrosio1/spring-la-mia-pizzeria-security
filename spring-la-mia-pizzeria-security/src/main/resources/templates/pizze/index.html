@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<title>Menu </title>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-expand-lg" style="background-color: red;">
+	  <div class="container-fluid" style="width: 100%;">
+		<img th:src="@{/images/icona.png}" alt="Logo Pizzeria"
+			 width="50" height="44" style="margin: 5px;">
+	    <a class="navbar-brand text-white" href="#">La mia Pizzeria</a>
+	    <button class="navbar-toggler" type="button" style="border-color: whitesmoke;
+				color: whitesmoke;"
+			 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+			 aria-controls="navbarSupportedContent" aria-expanded="false" 
+			 aria-label="Toggle navigation" th:text="--">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	        <li class="nav-item">
+	          <a class="nav-link text-white" 
+			  	th:href="@{/pizze}">Menu</a>
+	        </li>
+	        <li class="nav-item">
+	          	<a class="nav-link text-white" 
+			  		th:href="@{/pizze/create}">Aggiungi Pizza</a>
+	        </li>
+			<li class="nav-item">
+				<a class="nav-link text-white" 
+					th:href="@{/ingredienti}">Ingredienti</a>
+			</li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+</header>
+<main>
+	<div class="container">
+		<div style="margin-top: 20px; margin-bottom: 20px;">
+				<form class="d-flex" role="search"
+					th:object="${pizza}" 
+					th:action="@{/pizze/search}"
+					method="get">
+					<input class="form-control me-2 bg-white" type="text" 
+						placeholder="Cerca la tua Pizza..." aria-label="Search"
+						name="input">
+					<button class="btn" type="submit" style="background-color: green;
+						color: whitesmoke;">Cerca</button>
+			</form>
+		</div>
+		<h1>Menù delle Pizze</h1>
+			<table id="table-1" class="table table-striped"
+						th:unless="${list.isEmpty()}">
+						<thead>
+							<tr>
+								<th class="col-3"> NOME </th>
+								<th class="col-4"> Ingredienti </th>
+								<th class="col-2 d-none d-md-table-cell"> PREZZO </th>
+								<th class="col-3"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="pizza : ${list}">
+								<td th:text="${pizza.name}">1</td>
+								<td>
+									<ul class="list-group list-group-horizontal" style="list-style-type: none; display: flex;">
+<!--										<li th:unless="${list.isEmpty()}"-->
+<!--										th:with="ultimoIngrediente=${pizza.ingredienti[__${#lists.size(pizza.ingredienti) - 1}__]}">-->
+<!--											<span th:each="ingrediente: ${pizza.ingredienti}" -->
+<!--											th:text="${ultimoIngrediente.name}" style="padding-right: 3px;"></span>-->
+<!--										</li>-->
+										<li th>
+											<span th:each="ingrediente: ${pizza.ingredienti}" 
+												th:text="|${ingrediente.name},|" style="padding-right: 3px;"></span>
+										</li>		
+									</ul>
+								</td>
+								<td class="col-2 d-none d-md-table-cell" 
+									th:text="|€ ${#numbers.formatDecimal(pizza.price, 1, 2, 'COMMA')}|">1</td>
+								<td>
+									<div class="container-fluid d-flex gap-1">
+										<a class="btn" style="background-color: green;
+											color: whitesmoke;"
+											th:href="@{|/pizze/show/${pizza.id}|}"><i class="bi bi-search"></i>
+										</a>
+										<a class="btn" style="background-color: green;
+											color: whitesmoke;"
+											th:href="@{|/pizze/edit/${pizza.id}|}"><i class="bi bi-pencil"></i>
+										</a>
+										<form th:action="@{'/pizze/delete/{id}'(id=${pizza.id})}"
+												method="post">
+												<button class="btn" type="submit" id="submitButton"
+														style="background-color: red; color: whitesmoke;"
+														th:data-confirm-delete="|Sei sicuro di voler cancellare la pizza?|"
+														onclick="if(!confirm(this.getAttribute('data-confirm-delete'))) return false">
+														<i class="bi bi-trash"></i>
+												</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>			
+		<div th:if="${list.isEmpty()}">
+			<span> Non sono presenti pizze nel menù </span>
+		</div>
+	</div>
+</main>
+<footer>
+	<div class="container-fluid">
+		<div style="background-color: red; justify-content: center; 
+			color: whitesmoke; height: 50px; display: flex;
+			bottom: 0; align-items: center; width: 100%;">
+			<div>Made from F.D.</div>
+		</div>	
+	</div>
+</footer>
+	
+	
+	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

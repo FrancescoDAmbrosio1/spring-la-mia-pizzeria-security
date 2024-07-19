@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<title>Menu </title>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg" style="background-color: red;">
+		  <div class="container-fluid">
+			<img th:src="@{/images/icona.png}" alt="Logo Pizzeria"
+				 width="50" height="44" style="margin: 5px;">
+		    <a class="navbar-brand text-white" href="#">La mia Pizzeria</a>
+		    <button class="navbar-toggler" type="button" style="border-color: whitesmoke;
+					color: whitesmoke;"
+				 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+				 aria-controls="navbarSupportedContent" aria-expanded="false" 
+				 aria-label="Toggle navigation" th:text="--">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		        <li class="nav-item">
+		          	<a class="nav-link text-white" 
+				  		th:href="@{/pizze}">Menu</a>
+		        </li>
+		        <li class="nav-item">
+		          	<a class="nav-link text-white" 
+				  		th:href="@{/pizze/create}">Aggiungi Pizza</a>
+		        </li>
+				<li class="nav-item">
+					<a class="nav-link text-white" 
+						th:href="@{/ingredienti}">Ingredienti</a>
+				</li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+	</header>
+<main>
+	<div class="container" style="padding: 20px;">
+		<form id="pizza-form"
+				th:object="${pizza}" 
+				th:action="@{|/pizze/edit/${pizza.id}|}"
+				method="post">
+				<div class="mb-3">
+					<label for="pizzaInputName" class="form-label">Inserisci il nome della Pizza</label>
+					<input type="text" class="form-control" 
+						id="pizzaInputName" placeholder="es. Margherita"
+						th:field="*{name}" th:errorClass="is-invalid">
+						<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+							<ul>
+								<li th:each="err : ${#fields.errors('name')}" 
+									th:text="${err}">
+								</li>
+							</ul>
+						</div>
+				</div>
+				<div class="mb-3">
+					<label for="pizzaInputUrl" class="form-label">Inserisci Url della foto</label>
+					<input type="text" class="form-control" 
+					id="pizzaInputUrl" placeholder="es. /images/nomePizza.jpeg"
+					th:field="*{url}" th:errorClass="is-invalid">
+					<div th:if="${#fields.hasErrors('url')}" class="invalid-feedback">
+						<ul>
+							<li th:each="err : ${#fields.errors('url')}" 
+								th:text="${err}">
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mb-3">
+					<div class="row">
+						<div class="col-6">
+							<label for="pizzaInputUrl" class="form-label">Inserisci il prezzo della Pizza</label>
+							<input type="text" class="form-control" 
+									id="pizzaInputUrl" placeholder="es. 5.50"
+									th:field="*{price}" th:errorClass="is-invalid">
+								<div th:if="${#fields.hasAnyErrors()}" style="color: red;">
+									<ul>
+										<li th:each="err : ${#fields.globalErrors()}">
+											<span th:text="${err}">
+										</li>
+									</ul>
+								</div>
+						</div>
+						<div class="col-6">
+							<div class="dropdown">
+								<label for="InputIngredienti" class="form-label">Aggiungi gli ingredienti alla Pizza</label>
+								<input type="text" class="form-control" data-bs-toggle="dropdown" aria-expanded="false"
+										id="InputIngredienti" placeholder="Seleziona gli ingredienti...">
+									<ul class="dropdown-menu" style="max-height: 200px; overflow-y: scroll;">
+										<li	class="list-group-item" th:each="ingrediente : ${listaIngredienti}" >
+											<input type="checkbox" name="ingrediente" th:value="${ingrediente.id}" th:field="*{ingredienti}">
+											<label th:text="${ingrediente.name}">1</label>
+										</li>
+									</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="display: flex; justify-content:space-evenly;">
+					<div>
+						<button type="submit" class="btn mb-3" style="background-color:green; 
+							color: whitesmoke;">Aggiorna Pizza</button>
+					</div>
+					<div>
+						<a th:href="@{/pizze}" class="btn" style="background-color: green;
+							color: whitesmoke;">Torna al Menu</a>
+					</div>
+				</div>
+			</form>
+	</div>
+</main>
+<footer>
+	<div style="background-color: red; justify-content: center; 
+		color: whitesmoke; height: 50px; display: flex;
+		position: absolute; bottom: 0; align-items: center;
+		width: 100%;">
+		<div>Made from F.D.</div>
+	</div>
+</footer>
+	
+	
+	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

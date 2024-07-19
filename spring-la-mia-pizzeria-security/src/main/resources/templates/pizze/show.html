@@ -1,0 +1,67 @@
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+
+<title th:text="${pizza.name}"></title>
+</head>
+<body style="background-color: red;">
+	<div class="container" style="padding: 20px;">
+		<div class="card" style="width: 20rem; margin: auto;">
+		  	<img th:src="${pizza.url}" th:alt="${pizza.name}" class="card-img-top">
+		  	<div class="card-body">
+		    	<h3 class="card-title"
+					th:text="${pizza.name}"></h3>
+					<h5>Ingredienti:</h5>
+					<ul>
+						<li th:each="ingrediente: ${pizza.ingredienti}" 
+							th:text="${ingrediente.name}">
+						</li>	
+					</ul>
+				<p th:text="|Prezzo: € ${#numbers.formatDecimal(pizza.price, 1, 2, 'COMMA')}|" 
+					style="font-weight: 600;"></p>
+				<div style="display: flex; justify-content: space-around; text-align: center;">
+					<a th:href="@{/pizze}" class="btn" style="background-color: green;
+							color: whitesmoke;">Torna al Menu</a>						
+				</div>
+				<div th:unless="${pizza.offerte.isEmpty()}">
+					<hr>
+					  <h5>Offerte:</h5>
+					  <table id="offerte" class="table" style="font-size: small;">
+					  		<thead>
+					  			<tr>
+					  				<th class="col-6">  </th>
+					  				<th class="col-3"> Data Inzio</th>
+					  				<th class="col-3"> Data fine</th>
+					  			</tr>
+					  		</thead>
+					  		<tbody>
+					  			<tr th:each="offerta : ${pizza.offerte}">
+					  				<td th:text="${offerta.title}">1</td>
+					  				<td th:text="${#temporals.format(offerta.startDate,'dd-MM-yyyy')}">1</td>
+					  				<td	th:text="${#temporals.format(offerta.endDate,'dd-MM-yyyy')}">1</td>
+					  			</tr>
+					  		</tbody>
+					  	</table>	
+				</div>
+				<div th:if="${pizza.offerte.isEmpty()}">
+					<hr>
+					<p th:text="|Per la pizza ${pizza.name} non ci sono offerte in corso|"
+						style="font-style: italic;"></p>
+				</div>
+		  		<div style="display: flex; justify-content: space-around; text-align: center;">
+					<a th:href="@{/pizze/show/{id}/offerte(id=${pizza.id})}" class="btn" style="background-color: green;
+						color: whitesmoke;">Aggiungi Offerta</a>
+				</div>
+		  	</div>
+ 		</div>
+	</div>
+	
+	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

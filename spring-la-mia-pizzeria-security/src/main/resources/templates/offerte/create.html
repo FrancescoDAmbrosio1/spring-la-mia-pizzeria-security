@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<title>Menu </title>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg" style="background-color: red;">
+		  <div class="container-fluid">
+			<img th:src="@{/images/icona.png}" alt="Logo Pizzeria"
+				 width="50" height="44" style="margin: 5px;">
+		    <a class="navbar-brand text-white" href="#">La mia Pizzeria</a>
+		    <button class="navbar-toggler" type="button" style="border-color: whitesmoke;
+					color: whitesmoke;"
+				 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+				 aria-controls="navbarSupportedContent" aria-expanded="false" 
+				 aria-label="Toggle navigation" th:text="--">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		        <li class="nav-item">
+		          	<a class="nav-link text-white" 
+				  		th:href="@{/pizze}">Menu</a>
+		        </li>
+		        <li class="nav-item">
+		          	<a class="nav-link text-white" 
+				  		th:href="@{/pizze/create}">Aggiungi Pizza</a>
+		        </li>
+				<li class="nav-item">
+					<a class="nav-link text-white" 
+						th:href="@{/ingredienti}">Ingredienti</a>
+				</li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+	</header>
+<main>
+	<div class="container" style="padding: 20px;">
+		<form id="offerta-form"
+				th:object="${offerta}" 
+				th:action="@{/pizze/offerte/create}"
+				method="post">
+				<input type="hidden" th:field="*{pizza}" id="pizza">
+				<div class="mb-3">
+					<label for="offertaInputName" class="form-label">Inserisci il nome dell'Offerta</label>
+					<input type="text" class="form-control" 
+						id="offertaInputName" placeholder="nome offerta"
+						th:field="*{title}" th:errorClass="is-invalid">
+						<div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+							<ul>
+								<li th:each="err : ${#fields.errors('title')}" 
+									th:text="${err}">
+								</li>
+							</ul>
+						</div>
+				</div>
+				<div class="mb-3">
+					<label for="offertaInputStartDate" class="form-label">Inserisci la data di inizio offerta</label>
+					<input type="date" 
+						class="form-control" 
+						id="offertaInputStartDate" placeholder=""
+						th:field="*{startDate}" th:errorClass="is-invalid">
+						<div th:if="${#fields.hasErrors('startDate')}" class="invalid-feedback">
+							<ul>
+								<li th:each="err : ${#fields.errors('startDate')}" 
+							   		th:text="${err}">
+							   	</li>
+							</ul>
+						</div>
+				</div>
+				<div class="mb-3">
+					<label for="offertaInputEndDate" class="form-label">Inserisci la data di fine offerta</label>
+					<input type="date" class="form-control" 
+					id="pizzaInputUrl" placeholder=""
+					th:field="*{endDate}" th:errorClass="is-invalid">
+					<div th:if="${#fields.hasErrors('endDate')}" class="invalid-feedback">
+						<ul>
+							<li th:each="err : ${#fields.errors('endDate')}" 
+								th:text="${err}">
+							</li>
+						</ul>
+					</div>
+				</div>	
+				<div style="display: flex; justify-content:space-evenly;">
+					<div>
+						<button type="submit" class="btn mb-3" style="background-color: green; 
+									color: whitesmoke;">Salva Offerta</button>
+					</div>
+					<div>
+						<a th:href="@{/pizze}" class="btn" style="background-color: green;
+									color: whitesmoke;">Torna al Menu</a>
+					</div>
+				</div>
+		</form>
+	</div>
+</main>
+	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
