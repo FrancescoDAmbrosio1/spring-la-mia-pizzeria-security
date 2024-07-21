@@ -13,8 +13,5 @@ public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
     public List<Pizza> search( String input);
 
 	public List<Pizza> findByNameContainingIgnoreCase(String name);
-	
-	public Pizza removeByIngredienteId(Object ingredienti);
 
-	public List<Ingrediente> getIngredienti(Pizza pizza);
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.lessons.pizzeria.model.Ingrediente;
-import org.lessons.pizzeria.model.Pizza;
 import org.lessons.pizzeria.repository.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -75,14 +74,15 @@ public class IngredienteController {
 	@PostMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
 
+//		----Non necessario quando impostato method CASCADE sulle foreign keys del database-----
 		
-		Ingrediente i = ingredienteRepository.findById(id).get();
-		
-		for (Pizza pizza : i.getPizza()) {
-			
-			pizza.getIngredienti().remove(i);
-		
-		}
+//		Ingrediente i = ingredienteRepository.findById(id).get();
+//		
+//		for (Pizza pizza : i.getPizza()) {
+//			
+//			pizza.getIngredienti().remove(i);
+//		
+//		}
 		
 		ingredienteRepository.deleteById(id);
 		
