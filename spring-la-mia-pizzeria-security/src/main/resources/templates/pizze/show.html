@@ -54,7 +54,8 @@
 					<p th:text="|Per la pizza ${pizza.name} non ci sono offerte in corso|"
 						style="font-style: italic;"></p>
 				</div>
-		  		<div style="display: flex; justify-content: space-around; text-align: center;">
+		  		<div style="display: flex; justify-content: space-around; text-align: center;"
+					sec:authorize="hasAuthority('ADMIN')">
 					<a th:href="@{/pizze/show/{id}/offerte(id=${pizza.id})}" class="btn" style="background-color: green;
 						color: whitesmoke;">Aggiungi Offerta</a>
 				</div>

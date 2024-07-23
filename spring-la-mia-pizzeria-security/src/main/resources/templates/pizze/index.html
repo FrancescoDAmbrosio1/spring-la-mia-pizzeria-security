@@ -36,11 +36,13 @@
 	        </li>
 	        <li class="nav-item">
 	          	<a class="nav-link text-white" 
-			  		th:href="@{/pizze/create}">Aggiungi Pizza</a>
+			  		th:href="@{/pizze/create}"
+					sec:authorize="hasAuthority('ADMIN')">Aggiungi Pizza</a>
 	        </li>
 			<li class="nav-item">
 				<a class="nav-link text-white" 
-					th:href="@{/ingredienti}">Ingredienti</a>
+					th:href="@{/ingredienti}"
+					sec:authorize="hasAuthority('ADMIN')">Ingredienti</a>
 			</li>
 	      </ul>
 	    </div>

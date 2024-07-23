@@ -2,7 +2,6 @@ package org.lessons.pizzeria.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.lessons.pizzeria.model.Ingrediente;
 import org.lessons.pizzeria.repository.IngredienteRepository;
@@ -109,9 +108,7 @@ public class IngredienteController {
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Model model) {
 		
-		Optional<Ingrediente> ingredienteEdit;
-		
-		model.addAttribute("ingrediente", ingredienteEdit = ingredienteRepository.findById(id));
+		model.addAttribute("ingrediente",  ingredienteRepository.findById(id));
 		
 		return "/ingredienti";
 	}

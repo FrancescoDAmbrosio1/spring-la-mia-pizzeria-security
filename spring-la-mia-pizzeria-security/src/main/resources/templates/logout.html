@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Bootstrap CSS -->
+		<link th:rel="stylesheet"
+			th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+		<title>Log out</title>
+	</head>
+	<body style="background-color: red;">
+		
+			<img th:src="@{/images/icona.png}" alt="Logo Pizzeria"
+						 width="50" height="44" style="margin: 5px;">
+					
+			<h1>Are you sure want LogOut</h1>
+			<form id="logout-form"
+				th:action="@{/logout}" method="post">
+			
+				<input class="btn" style="background-color: green;"
+					type="submit" value="Log Out" />
+		</form>	
+		
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Bootstrap CSS -->
+		<link th:rel="stylesheet"
+			th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+		<title>Log In</title>
+	</head>
+	<body style="background-color: red;">
+		
+			<img th:src="@{/images/icona.png}" alt="Logo Pizzeria"
+						 width="50" height="44" style="margin: 5px;">
+					
+			<h1>Please Log In</h1>
+			<div th:if="${param.error}">
+			Invalid username and password.</div>
+			<div th:if="${param.logout}">
+			You have been logged out.</div>
+			<form id="login-form"
+				th:action="@{/login}" method="post">
+			<div>
+				<input type="text" name="username" placeholder="Username"/>
+			</div>
+			<div>
+				<input type="password" name="password" placeholder="Password"/>
+			</div>
+				<input class="btn" style="background-color: green;"
+					type="submit" value="Log in" />
+		</form>	
+		
+		<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+	</body>
+</html>

@@ -8,27 +8,35 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.security.config.Customizer.withDefaults;
 
 import org.lessons.pizzeria.service.DatabaseUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+	
+	
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
         .requestMatchers("/pizze/create", "/pizze/edit/**", "/pizze/delete/**").hasAuthority("ADMIN")
         .requestMatchers("/ingredienti", "/ingredienti/**").hasAuthority("ADMIN")
         .requestMatchers("/offerte", "/offerte/**").hasAuthority("ADMIN")
-        .requestMatchers("/pizze", "/pizze/**").hasAuthority("USER")
         .requestMatchers( "/pizze", "/pizze/**").hasAuthority("ADMIN")
+        .requestMatchers("/pizze", "/pizze/**").hasAuthority("USER")
+    	.requestMatchers("/css/**", "/js/**", "/webjars/**","/images/**").permitAll()
+//    	.requestMatchers("/logout").permitAll()
 //        .requestMatchers("/**").permitAll()
-        )
-    .formLogin(withDefaults()).logout(withDefaults());
+    	);
+    	http.formLogin()
+    	.and().logout();
+    ;
     return http.build();
   }
 
+  
+  
+  
   @Bean
   DatabaseUserDetailsService userDetailsService() {
     return new DatabaseUserDetailsService();

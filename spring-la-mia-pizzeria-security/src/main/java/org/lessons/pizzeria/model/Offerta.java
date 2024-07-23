@@ -2,6 +2,8 @@ package org.lessons.pizzeria.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Offerta {
 	@Column(name = "titolo", nullable = false)
 	private String title;
 	
+//	@DateTimeFormat(pattern = "yyyy-MM-dd") //per la formattazione delle date dell'entità
 	@NotNull(message = "La data di inizio è obbligatoria")
 	@Column(name = "data di inizio", nullable = false)
 	private LocalDate startDate;
